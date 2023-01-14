@@ -9,7 +9,7 @@ import { Button } from './Button/Button';
 import { Modal } from './Modal/Modal';
 import { Loader } from './Loader/Loader';
 export const App = () => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [imageName, setImageName] = useState('');
   const [imageArray, setImageArray] = useState([]);
   const [isLoading, setIsLoading] = useState(false)
@@ -18,6 +18,7 @@ export const App = () => {
   const handleForm = (getImageName) => {
     setImageName(getImageName);
     setImageArray([]);
+    setPage(1)
   }
  
   useEffect(() => {
