@@ -4,9 +4,9 @@ import PropTypes  from "prop-types"
 export const ImageGalleryItem = ({images, getLargeImage}) => {
     return (
     <>
-        {images.map(img =>
-            <Li key={img.id} onClick={() => { getLargeImage(img.largeImageURL) }}>
-                <Img src={img.webformatURL} alt={img.tags} />
+        {images.map(({id,webformatURL,largeImageURL,tags }) =>
+            <Li key={id} onClick={() => {getLargeImage(largeImageURL)}}>
+                <Img src={webformatURL} alt={tags}/>
             </Li>
         )}
     </>

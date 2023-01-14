@@ -1,47 +1,41 @@
-import { Component } from 'react'
+import { useState } from 'react'
 import { FaSistrix } from 'react-icons/fa'
 import { toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 import { Header, Input, Button, SearchForm } from './Searchbar.styled'
 
 
-export class Searchbar extends Component {
-    state={
-    imageName:'',
-    }
-    
-    handleChange = evt => {
+export const Searchbar = ({getImageName}) => {
+    const [imageName, setImageName] = useState('')
+    const handleChange = evt => {
         const value = evt.currentTarget.value;
-        this.setState({ imageName: value.toLowerCase()});
+        setImageName(value.toLowerCase());
     }
 
-    transferImageNameToApp = evt => {
+    const transferImageNameToApp = evt => {
         evt.preventDefault();
-        const { imageName } = this.state
         if (imageName.trim() === '') {
             // console.log('object');
             toast.error(' Entry image name!');
             // alert(' Entry image name!')
             return;
         }
-        this.props.getImageName(imageName);
-        this.resetForm()
+        getImageName(imageName);
+        resetForm()
         
     }
-    resetForm = () => {
-        this.setState({imageName:''})
+    const resetForm = () => {
+        setImageName('')
     }
-
-    render() {
-        return (   
+return (   
 <Header >
-    <SearchForm onSubmit={this.transferImageNameToApp} >
+    <SearchForm onSubmit={transferImageNameToApp} >
     <Button type="submit" >
         <FaSistrix style={{width: "20px",height: "22px"}} />
     </Button>
 
     <Input
-    onChange={this.handleChange}
+    onChange={handleChange}
     type="text"
     name='name'
     autoComplete="off"
@@ -51,4 +45,4 @@ export class Searchbar extends Component {
     </SearchForm>
 </Header>
     )
-}}
+}
