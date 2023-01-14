@@ -37,7 +37,7 @@ export const App = () => {
     const loadDataImage = async (imageName, page) => {
     try {
       const data = await requestHTTP(imageName, page);
-      console.log("🚀  data", data.hits.length);
+      // console.log("🚀  data", data);
     if (data.hits.length <= 11) {
       setPage(0);
       return;
