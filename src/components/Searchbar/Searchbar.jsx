@@ -14,7 +14,7 @@ export const Searchbar = ({getImageName}) => {
 
     const transferImageNameToApp = evt => {
         evt.preventDefault();
-        if (imageName.trim() === '') {
+        if (imageName.trim() === '' ) {
             // console.log('object');
             toast.error(' Entry image name!');
             // alert(' Entry image name!')

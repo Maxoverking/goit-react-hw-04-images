@@ -7,7 +7,14 @@ export const requestHTTP = async (inputValue, page) => {
     const PAGES = `page=${page}&per_page=12`
     try {
         const response = await axios.get(`${URL}${OPTION}${PAGES}`);
-        return response.data;
+        return response.data.hits.map(img => {
+            return {
+                id: img.id,
+                webformatURL: img.webformatURL,
+                largeImageURL: img.largeImageURL,
+                tags: img.tags,
+            }
+        });
     } catch (error) {
        return console.log('ERROR in Servises',error); 
     }
