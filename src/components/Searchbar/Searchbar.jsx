@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { FaSistrix } from 'react-icons/fa'
 import { toast } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
 import { Header, Input, Button, SearchForm } from './Searchbar.styled'
 
 

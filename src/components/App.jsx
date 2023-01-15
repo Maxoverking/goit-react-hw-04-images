@@ -1,5 +1,7 @@
-import { useState,useEffect } from 'react';
- import { ToastContainer } from 'react-toastify';
+import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 import { requestHTTP } from './Servises/Servises';
 
 import { Searchbar } from './Searchbar/Searchbar';
@@ -10,6 +12,7 @@ import { Modal } from './Modal/Modal';
 import { Loader } from './Loader/Loader';
 export const App = () => {
   const [page, setPage] = useState(0);
+  const [pageNumber, setPageNumber] = useState(false);
   const [imageName, setImageName] = useState('');
   const [imageArray, setImageArray] = useState([]);
   const [isLoading, setIsLoading] = useState(false)
@@ -29,20 +32,26 @@ export const App = () => {
   },[imageName, page])
 
   const loadDataImage = async (imageName, page) => {
-          setIsLoading(true);
+    setIsLoading(true);
+
       try {
-        const data = await requestHTTP(imageName, page);
-       
-      data.map(objects => {
+      const data = await requestHTTP(imageName, page);
+      data.hits.map(objects => {
         return setImageArray(prevState => [...prevState, objects]);
       }) 
-        
+      
+      if (page === Math.ceil(data.totalHits / 12)) {
+        toast.info('You have seen all photos ');
+        return setPageNumber(false);
+      }
+        setPageNumber(true);
       } catch (error) {
         console.log("🚀  error", error);
       } finally {
         setIsLoading(false);
       }
   }
+
     const getLargeImage = (getLargeImageURL) => {
       setLargeImageURL(getLargeImageURL);
     }
@@ -74,7 +83,7 @@ return (
                 getLargeImage={getLargeImage}/>
             }           
           </ImageGallery>
-          {imageArray.length > 0 ? <Button loadMoreImg={loadMore} />  : ''}
+          {pageNumber && <Button loadMoreImg={loadMore} />}
 
           {largeImageURL &&
             <Modal
